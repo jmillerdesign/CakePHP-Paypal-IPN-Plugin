@@ -463,9 +463,9 @@
       <td><?php echo $item['quantity']; ?></td>
       <td><?php echo $item['mc_gross']; ?></td>
       <td>
-        <?php echo $html->link('View', array('admin' => true, 'plugin' => 'paypal_ipn', 'controller' => 'paypal_items', 'action' => 'view', 'id' => $item['id']));  ?>
-        <?php echo $html->link('Edit', array('admin' => true, 'plugin' => 'paypal_ipn', 'controller' => 'paypal_items', 'action' => 'edit', 'id' => $item['id']));  ?>
-        <?php echo $html->link('Delete', array('admin' => true, 'plugin' => 'paypal_ipn', 'controller' => 'paypal_items', 'action' => 'delete', 'id' => $item['id']), null, "Are you sure?");  ?>
+        <?php echo $this->Html->link('View', array('admin' => true, 'plugin' => 'paypal_ipn', 'controller' => 'paypal_items', 'action' => 'view', 'id' => $item['id']));  ?>
+        <?php echo $this->Html->link('Edit', array('admin' => true, 'plugin' => 'paypal_ipn', 'controller' => 'paypal_items', 'action' => 'edit', 'id' => $item['id']));  ?>
+        <?php echo $this->Html->link('Delete', array('admin' => true, 'plugin' => 'paypal_ipn', 'controller' => 'paypal_items', 'action' => 'delete', 'id' => $item['id']), null, "Are you sure?");  ?>
       </td>
     </tr>
   <?php endforeach; ?>
@@ -475,9 +475,9 @@
 
 <div class="actions">
 	<ul>
-		<li><?php echo $html->link(__('Edit InstantPaymentNotification', true), array('action' => 'edit', $instantPaymentNotification['InstantPaymentNotification']['id'])); ?> </li>
-		<li><?php echo $html->link(__('Delete InstantPaymentNotification', true), array('action' => 'delete', $instantPaymentNotification['InstantPaymentNotification']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $instantPaymentNotification['InstantPaymentNotification']['id'])); ?> </li>
-		<li><?php echo $html->link(__('List InstantPaymentNotifications', true), array('action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New InstantPaymentNotification', true), array('action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Edit InstantPaymentNotification', true), array('action' => 'edit', $instantPaymentNotification['InstantPaymentNotification']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Delete InstantPaymentNotification', true), array('action' => 'delete', $instantPaymentNotification['InstantPaymentNotification']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $instantPaymentNotification['InstantPaymentNotification']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('List InstantPaymentNotifications', true), array('action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New InstantPaymentNotification', true), array('action' => 'add')); ?> </li>
 	</ul>
 </div>

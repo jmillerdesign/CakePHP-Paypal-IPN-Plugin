@@ -1,5 +1,6 @@
 <?php
-App::import('Core', array('HttpSocket'));
+App::uses('DataSource', 'Model/Datasource');
+App::uses('HttpSocket', 'Network/Http');
 
 class PaypalIpnSource extends DataSource {
   
@@ -55,5 +56,3 @@ class PaypalIpnSource extends DataSource {
     return false;
   }
 }
-
-?>
