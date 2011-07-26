@@ -56,3 +56,5 @@ class PaypalIpnSource extends DataSource {
     return false;
   }
 }
+
+?>
