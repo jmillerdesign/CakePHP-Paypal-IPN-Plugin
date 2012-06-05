@@ -7,12 +7,12 @@
   */
 class PaypalHelper extends AppHelper {
 
-  var $helpers = array('Html','Form');
+  public $helpers = array('Html','Form');
 
   /**
     *  Setup the config based on the paypal_ipn_config in /Plugins/PaypalIpn/Config/paypal_ipn_config.php
     */
-  function __construct(View $View, $settings = array()){
+  public function __construct(View $View, $settings = array()){
     if(App::import(array('type' => 'File', 'name' => 'PaypalIpn.PaypalIpnConfig', 'file' => APP . 'Config' . DS . 'paypal_ipn_config.php'))) {
     	$this->config = new PaypalIpnConfig();
     }
@@ -62,7 +62,7 @@ class PaypalHelper extends AppHelper {
     *      item_name: string name of product.
     *      etc...
     */
-  function button($title = null, $options = array()){
+  public function button($title = null, $options = array()){
     if(is_array($title)){
       $options = $title;
       $title = isset($options['label']) ? $options['label'] : null;
@@ -131,7 +131,7 @@ class PaypalHelper extends AppHelper {
    * @access private
    * @return Html form button and close form
    */
-  function __hiddenNameValue($name, $value){
+  private function __hiddenNameValue($name, $value){
     return "<input type='hidden' name='$name' value='$value' />";
   }
 
@@ -141,7 +141,7 @@ class PaypalHelper extends AppHelper {
    * @access private
    * @return Html form button and close form
    */
-  function __submitButton($text){
+  private function __submitButton($text){
     return "</div>" . $this->Form->end(array('label' => $text));
   }
 
@@ -155,7 +155,7 @@ class PaypalHelper extends AppHelper {
     *     Float amount //paypal API amount to charge for perioud of term.
     *  @return array options
     */
-  function __subscriptionOptions($options = array()){
+  private function __subscriptionOptions($options = array()){
     //Period... every 1, 2, 3, etc.. Term
     if(isset($options['period'])){
       $options['p3'] = $options['period'];
@@ -187,18 +187,18 @@ class PaypalHelper extends AppHelper {
     * @param array of options that will be returned with proper paypal friendly name/value pairs for items
     * @return array options
     */
-    function __uploadCartOptions($options = array()){
-      if(isset($options['items']) && is_array($options['items'])){
-        $count = 1;
-        foreach($options['items'] as $item){
-          foreach($item as $key => $value){
-            $options[$key.'_'.$count] = $value;
-          }
-          $count++;
+  private function __uploadCartOptions($options = array()){
+    if(isset($options['items']) && is_array($options['items'])){
+      $count = 1;
+      foreach($options['items'] as $item){
+        foreach($item as $key => $value){
+          $options[$key.'_'.$count] = $value;
         }
-        unset($options['items']);
+        $count++;
       }
-      return $options;
+      unset($options['items']);
     }
+    return $options;
+  }
 }
 ?>
