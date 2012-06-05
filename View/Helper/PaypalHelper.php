@@ -14,7 +14,7 @@ class PaypalHelper extends AppHelper {
     */
   function __construct(View $View, $settings = array()){
     if(App::import(array('type' => 'File', 'name' => 'PaypalIpn.PaypalIpnConfig', 'file' => APP . 'Config' . DS . 'paypal_ipn_config.php'))) {
-    	$this->config =& new PaypalIpnConfig();
+    	$this->config = new PaypalIpnConfig();
     }
     else {
     	$this->config = new PaypalIpnConfig();
