@@ -13,7 +13,7 @@ class PaypalHelper extends AppHelper {
     *  Setup the config based on the paypal_ipn_config in /Plugins/PaypalIpn/Config/paypal_ipn_config.php
     */
   function __construct(View $View, $settings = array()){
-    if(App::import(array('type' => 'File', 'name' => 'PaypalIpn.PaypalIpnConfig', 'file' => APP_PATH . DS . 'Config' . DS . 'paypal_ipn_config.php'))) {
+    if(App::import(array('type' => 'File', 'name' => 'PaypalIpn.PaypalIpnConfig', 'file' => APP . 'Config' . DS . 'paypal_ipn_config.php'))) {
     	$this->config =& new PaypalIpnConfig();
     }
     else {
