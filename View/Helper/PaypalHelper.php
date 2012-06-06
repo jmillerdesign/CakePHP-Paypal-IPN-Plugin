@@ -123,6 +123,10 @@ class PaypalHelper extends AppHelper {
     return $retval;
   }
 
+  public function submit($title, $options) {
+    return $this->button($title, $options);
+  }
+
   /**
    *  __hiddenNameValue constructs the name value pair in a hidden input html tag
    * @access private
