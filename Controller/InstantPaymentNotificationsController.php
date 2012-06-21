@@ -4,21 +4,24 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
 	var $name = 'InstantPaymentNotifications';
 	var $helpers = array('Html', 'Form');
 	var $components = array('Email');
-	
+
 	/**
 	  * beforeFilter makes sure the process is allowed by auth
 	  *  since paypal will need direct access to it.
 	  */
 	function beforeFilter(){
 	  parent::beforeFilter();
-	  if(isset($this->Auth)){
-	  	$this->Auth->allow('process');
+
+	  foreach (array_keys($this->components) as $component) {
+	  	if (is_subclass_of($this->{$component}, 'AuthComponent')) {
+	  		$this->{$component}->allow('process');
+	  	}
 	  }
 	  if(isset($this->Security) && $this->action == 'process'){
 	    $this->Security->validatePost = false;
 	  }
 	}
-	
+
 	/**
 	  * Paypal IPN processing action..
 	  * This action is the intake for a paypal_ipn callback performed by paypal itself.
@@ -35,7 +38,7 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
 	  }
 	  $this->redirect('/');
   }
-  
+
   /**
     * __processTransaction is a private callback function used to log a verified transaction
     * @access private
@@ -46,15 +49,15 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
     //Put the afterPaypalNotification($txnId) into your app_controller.php
     $this->afterPaypalNotification($txnId);
   }
-	
+
 	/**
 	  * Admin Only Functions... all baked
 	  */
-	
+
 	/**
 	  * Admin Index
 	  */
-	function admin_index() {	  
+	function admin_index() {
 		$this->InstantPaymentNotification->recursive = 0;
 		$this->set('instantPaymentNotifications', $this->paginate());
 	}
@@ -70,12 +73,12 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
 		}
 		$this->set('instantPaymentNotification', $this->InstantPaymentNotification->read(null, $id));
 	}
-	
+
 	/**
 	  * Admin Add
 	  */
 	function admin_add(){
-	   $this->redirect(array('admin' => true, 'action' => 'edit')); 
+	   $this->redirect(array('admin' => true, 'action' => 'edit'));
 	}
 
 	/**
@@ -110,6 +113,6 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
 			$this->redirect(array('action'=>'index'));
 		}
 	}
-	
+
 }
 ?>
