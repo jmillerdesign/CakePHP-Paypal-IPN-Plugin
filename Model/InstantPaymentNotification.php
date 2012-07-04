@@ -2,13 +2,13 @@
 class InstantPaymentNotification extends PaypalIpnAppModel {
     /**
      * name is the name of the model
-     * 
+     *
      * @var $name string
      * @access public
      */
-    var $name = 'InstantPaymentNotification';
-    
-    var $hasMany = array(
+    public $name = 'InstantPaymentNotification';
+
+    public $hasMany = array(
       'PaypalItem' => array(
         'className' => 'PaypalIpn.PaypalItem'
       )
@@ -16,14 +16,14 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
     /**
       * the PaypalSource
       */
-    var $paypal = null;
-    
+    private $paypal = null;
+
     /**
       * verifies POST data given by the paypal instant payment notification
       * @param array $data Most likely directly $_POST given by the controller.
       * @return boolean true | false depending on if data received is actually valid from paypal and not from some script monkey
       */
-    function is_valid($data){
+    public function is_valid($data){
       if(!empty($data)){
         App::uses('PaypalIpnSource', 'PaypalIpn.Model/Datasource');
         $this->paypal = new PaypalIpnSource();
@@ -31,7 +31,7 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
       }
       return false;
     }
-    
+
     /**
       * Utility method to send basic emails based on a paypal IPN transaction.
       * This method is very basic, if you need something more complicated I suggest
@@ -72,9 +72,9 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
       *   message: actual body of message to be sent (default: null)
       *
       * @param array $options of the ipn to send
-      *   
+      *
       */
-    function email($options = array()){
+    public function email($options = array()){
       if(!is_array($options)){
         $message = $options;
         $options = array();
@@ -83,7 +83,7 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
       if(isset($options['id'])){
         $this-> id = $options['id'];
       }
-      
+
       $this->read();
       $defaults = array(
         'subject' => 'Thank you for your paypal transaction',
@@ -95,18 +95,18 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
         'layout' => 'default',
         'template' => null,
         'log' => true,
-        'message' => null 
+        'message' => null
       );
       $options = array_merge($defaults, $options);
-      
+
       //debug($options);
       if($options['log']){
         $this->log("Emailing: {$options['to']} through the PayPal IPN Plugin. ",'email');
       }
-      
+
       App::import('Component','Email');
       $Email = new EmailComponent;
-      
+
       $Email->to = $options['to'];
       $Email->from = $options['from'];
       $Email->bcc = $options['bcc'];
@@ -115,7 +115,7 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
       $Email->sendAs = $options['sendAs'];
       $Email->template = $options['template'];
       $Email->layout = $options['layout'];
-      
+
       //Send the message.
       if($options['message']){
         $Email->send($options['message']);
@@ -124,14 +124,14 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
         $Email->send();
       }
     }
-    
+
     /**
       * builds the associative array for paypalitems only if it was a cart upload
       *
       * @param raw post data sent back from paypal
       * @return array of cakePHP friendly association array.
       */
-    function buildAssociationsFromIPN($post){
+    public function buildAssociationsFromIPN($post){
       $retval = array();
       $retval['InstantPaymentNotification'] = $post;
       if(isset($post['num_cart_items']) && $post['num_cart_items'] > 0){
@@ -150,6 +150,6 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
       }
       return $retval;
     }
-    
+
 }
 ?>
