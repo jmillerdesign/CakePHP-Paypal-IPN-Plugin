@@ -40,21 +40,21 @@ foreach ($paypalItems as $paypalItem):
 			<?php echo $this->Time->niceShort($paypalItem['PaypalItem']['created']); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View', true), array('action' => 'view', $paypalItem['PaypalItem']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit', true), array('action' => 'edit', $paypalItem['PaypalItem']['id'])); ?>
-			<?php echo $this->Html->link(__('Delete', true), array('action' => 'delete', $paypalItem['PaypalItem']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $paypalItem['PaypalItem']['id'])); ?>
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $paypalItem['PaypalItem']['id'])); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $paypalItem['PaypalItem']['id'])); ?>
+			<?php echo $this->Html->link(__('Delete'), array('action' => 'delete', $paypalItem['PaypalItem']['id']), null, sprintf(__('Are you sure you want to delete # %s?'), $paypalItem['PaypalItem']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
 </table>
 </div>
 <div class="paging">
-	<?php echo $this->Paginator->prev('<< '.__('previous', true), array(), null, array('class'=>'disabled'));?>
+	<?php echo $this->Paginator->prev('<< '.__('previous'), array(), null, array('class'=>'disabled'));?>
  | 	<?php echo $this->Paginator->numbers();?>
-	<?php echo $this->Paginator->next(__('next', true).' >>', array(), null, array('class' => 'disabled'));?>
+	<?php echo $this->Paginator->next(__('next').' >>', array(), null, array('class' => 'disabled'));?>
 </div>
 <div class="actions">
 	<ul>
-		<li><?php echo $this->Html->link(__('New PaypalItem', true), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('New PaypalItem'), array('action' => 'add')); ?></li>
 	</ul>
 </div>

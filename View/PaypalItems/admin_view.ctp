@@ -60,9 +60,9 @@
 </div>
 <div class="actions">
 	<ul>
-		<li><?php echo $html->link(__('Edit PaypalItem', true), array('action' => 'edit', $paypalItem['PaypalItem']['id'])); ?> </li>
-		<li><?php echo $html->link(__('Delete PaypalItem', true), array('action' => 'delete', $paypalItem['PaypalItem']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $paypalItem['PaypalItem']['id'])); ?> </li>
-		<li><?php echo $html->link(__('List PaypalItems', true), array('action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New PaypalItem', true), array('action' => 'add')); ?> </li>
+		<li><?php echo $html->link(__('Edit PaypalItem'), array('action' => 'edit', $paypalItem['PaypalItem']['id'])); ?> </li>
+		<li><?php echo $html->link(__('Delete PaypalItem'), array('action' => 'delete', $paypalItem['PaypalItem']['id']), null, sprintf(__('Are you sure you want to delete # %s?'), $paypalItem['PaypalItem']['id'])); ?> </li>
+		<li><?php echo $html->link(__('List PaypalItems'), array('action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('New PaypalItem'), array('action' => 'add')); ?> </li>
 	</ul>
 </div>

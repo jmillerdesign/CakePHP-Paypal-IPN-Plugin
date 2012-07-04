@@ -475,9 +475,9 @@
 
 <div class="actions">
 	<ul>
-		<li><?php echo $this->Html->link(__('Edit InstantPaymentNotification', true), array('action' => 'edit', $instantPaymentNotification['InstantPaymentNotification']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('Delete InstantPaymentNotification', true), array('action' => 'delete', $instantPaymentNotification['InstantPaymentNotification']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $instantPaymentNotification['InstantPaymentNotification']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List InstantPaymentNotifications', true), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New InstantPaymentNotification', true), array('action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Edit InstantPaymentNotification'), array('action' => 'edit', $instantPaymentNotification['InstantPaymentNotification']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Delete InstantPaymentNotification'), array('action' => 'delete', $instantPaymentNotification['InstantPaymentNotification']['id']), null, sprintf(__('Are you sure you want to delete # %s?'), $instantPaymentNotification['InstantPaymentNotification']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('List InstantPaymentNotifications'), array('action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New InstantPaymentNotification'), array('action' => 'add')); ?> </li>
 	</ul>
 </div>
