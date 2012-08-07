@@ -32,12 +32,17 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
 	  */
 	public function process(){
 		$raw = file_get_contents("php://input");
-		parse_str($raw, $data);
+		$data = explode('&', urldecode($raw));
+		foreach ($data as &$r) {
+			$r = preg_replace('/transaction\[([0-9]+)\]\.(.+)=(.+)/', 'transaction[$1][$2]=$3', $r);
+		}
+		parse_str(join('&', $data), $data);
 
-	  $data['valid'] = $this->InstantPaymentNotification->is_valid($data);
+	  $data['valid'] = $this->InstantPaymentNotification->is_valid($raw);
+	  $data['ip'] = env('REMOTE_ADDR');
+	  $data['raw'] = $raw;
 
     $notification = $this->InstantPaymentNotification->buildAssociationsFromIPN($data);
-    $notification['InstantPaymentNotification']['raw'] = $raw;
     $this->InstantPaymentNotification->saveAll($notification);
     $this->__processTransaction($this->InstantPaymentNotification->id);
 
