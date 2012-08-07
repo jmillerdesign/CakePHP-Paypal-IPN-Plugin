@@ -3,21 +3,21 @@ App::uses('DataSource', 'Model/Datasource');
 App::uses('HttpSocket', 'Network/Http');
 
 class PaypalIpnSource extends DataSource {
-  
+
   /**
     * Http is the HttpSocket Object.
     * @access public
     * @var object
     */
   var $Http = null;
-  
+
   /**
     * constructer.  Load the HttpSocket into the Http var.
     */
   function __construct(){
     $this->Http =& new HttpSocket();
   }
-  
+
   /**
   	* Strip slashes
   	* @param string value
@@ -26,33 +26,35 @@ class PaypalIpnSource extends DataSource {
   static function clearSlash($value){
   	return get_magic_quotes_runtime() ? stripslashes($value) : $value;
   }
-  
+
   /**
     * verifies POST data given by the paypal instant payment notification
     * @param array $data Most likely directly $_POST given by the controller.
     * @return boolean true | false depending on if data received is actually valid from paypal and not from some script monkey
     */
   function isValid($data){
-    $data['cmd'] = '_notify-validate';
-    
-    $data = array_map(array('PaypalIpnSource', 'clearSlash'), $data);
-  
-    if(isset($data['test_ipn'])) {
-      $server = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+    $paypal_ip = gethostbyname('notify.paypal.com');
+
+    if (env('REMOTE_ADDR') === $paypal_ip) {
+      if(isset($data['test_ipn'])) {
+        $server = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_notify-validate';
+      } else {
+        $server = 'https://www.paypal.com/cgi-bin/webscr?cmd=_notify-validate';
+      }
+
+      $response = $this->Http->post($server, $data);
+
+      if($response == "VERIFIED"){
+        return true;
+      }
+
+      if(!$response){
+        $this->log('HTTP Error in PaypalIpnSource::isValid while posting back to PayPal', 'paypal');
+      }
     } else {
-      $server = 'https://www.paypal.com/cgi-bin/webscr';
+      $this->log('IPN Notification comes from unknown IP: '.env('REMOTE_ADDR'), 'paypal');
     }
-    
-    $response = $this->Http->post($server, $data);
-    
-    if($response == "VERIFIED"){
-      return true;
-    }
-    
-    if(!$response){
-      $this->log('HTTP Error in PaypalIpnSource::isValid while posting back to PayPal', 'paypal');
-    }
-    
+
     return false;
   }
 }
