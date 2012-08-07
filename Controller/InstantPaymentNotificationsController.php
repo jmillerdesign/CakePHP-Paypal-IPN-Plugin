@@ -31,11 +31,13 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
 	  * @author Nick Baker
 	  */
 	public function process(){
-		$data = $_POST;
+		$raw = file_get_contents("php://input");
+		parse_str($raw, $data);
+
 	  $data['valid'] = $this->InstantPaymentNotification->is_valid($data);
 
     $notification = $this->InstantPaymentNotification->buildAssociationsFromIPN($data);
-    $notification['InstantPaymentNotification']['raw'] = serialize($_POST);
+    $notification['InstantPaymentNotification']['raw'] = $raw;
     $this->InstantPaymentNotification->saveAll($notification);
     $this->__processTransaction($this->InstantPaymentNotification->id);
 
