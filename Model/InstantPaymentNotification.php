@@ -24,6 +24,7 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
       * @return boolean true | false depending on if data received is actually valid from paypal and not from some script monkey
       */
     public function is_valid($data){
+      $data = is_string($data) ? $this->parseRaw($data) : $data;
       if(!empty($data)){
         App::uses('PaypalIpnSource', 'PaypalIpn.Model/Datasource');
         $this->paypal = new PaypalIpnSource();
@@ -149,6 +150,15 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
         }
       }
       return $retval;
+    }
+
+    public function parseRaw($raw) {
+      $data = explode('&', urldecode($raw));
+      foreach ($data as &$r) {
+        $r = preg_replace('/transaction\[([0-9]+)\]\.(.+)=(.+)/', 'transaction[$1][$2]=$3', $r);
+      }
+      parse_str(join('&', $data), $data);
+      return $data;
     }
 
 }
