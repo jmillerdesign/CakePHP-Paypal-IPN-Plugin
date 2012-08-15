@@ -33,9 +33,7 @@ class PaypalIpnSource extends DataSource {
     * @return boolean true | false depending on if data received is actually valid from paypal and not from some script monkey
     */
   function isValid($data){
-    $paypal_ip = gethostbyname('notify.paypal.com');
-
-    if (env('REMOTE_ADDR') === $paypal_ip) {
+    if (preg_match('/paypal\.com$/', gethostbyaddr(env('REMOTE_ADDR')))) {
       if(isset($data['test_ipn'])) {
         $server = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_notify-validate';
       } else {
