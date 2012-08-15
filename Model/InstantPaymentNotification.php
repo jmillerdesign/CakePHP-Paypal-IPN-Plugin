@@ -24,7 +24,6 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
       * @return boolean true | false depending on if data received is actually valid from paypal and not from some script monkey
       */
     public function is_valid($data){
-      $data = is_string($data) ? $this->parseRaw($data) : $data;
       if(!empty($data)){
         App::uses('PaypalIpnSource', 'PaypalIpn.Model/Datasource');
         $this->paypal = new PaypalIpnSource();
