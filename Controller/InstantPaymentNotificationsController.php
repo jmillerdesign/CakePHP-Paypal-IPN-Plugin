@@ -13,7 +13,7 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
 	  parent::beforeFilter();
 
 	  foreach (array_keys($this->components) as $component) {
-	  	if (is_subclass_of($this->{$component}, 'AuthComponent')) {
+	  	if (is_a($this->{$component}, 'AuthComponent')) {
 	  		$this->{$component}->allow('process');
 	  	}
 	  }
