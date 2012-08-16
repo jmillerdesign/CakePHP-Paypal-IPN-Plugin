@@ -12,4 +12,10 @@ Router::connect('/paypal_ipn/:action/*', array(
 	'plugin' => 'paypal_ipn',
 	'controller' => 'instant_payment_notifications',
 ));
+
+Router::connect('/paypal_items/:action/*', array(
+	'admin' => 'true',
+	'plugin' => 'paypal_ipn',
+	'controller' => 'paypal_items',
+));
 /* End Paypal IPN plugin */
