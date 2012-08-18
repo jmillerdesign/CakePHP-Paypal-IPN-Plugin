@@ -58,7 +58,7 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
 		} else {
 			$result = 'empty';
 		}
-
+	}
 /**
  * Paypal IPN processing action..
  * This action is the intake for a paypal_ipn callback performed by paypal itself.
