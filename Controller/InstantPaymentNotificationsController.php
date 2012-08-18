@@ -5,31 +5,30 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
 	var $helpers = array('Html', 'Form');
 	var $components = array('Email');
 
-	/**
-	  * beforeFilter makes sure the process is allowed by auth
-	  *  since paypal will need direct access to it.
-	  */
+/**
+ * beforeFilter makes sure the process is allowed by auth
+ *  since paypal will need direct access to it.
+ */
 	public function beforeFilter(){
-	  parent::beforeFilter();
-
-	  foreach (array_keys($this->components) as $component) {
-	  	if (is_subclass_of($this->{$component}, 'AuthComponent')) {
-	  		$this->{$component}->allow('process');
-	  	}
-	  }
-	  if(isset($this->Security) && $this->action == 'process'){
-	    $this->Security->validatePost = false;
-	  }
+		parent::beforeFilter();
+		foreach (array_keys($this->components) as $component) {
+			if (is_a($this->{$component}, 'AuthComponent')) {
+				$this->{$component}->allow('process');
+			}
+		}
+		if(isset($this->Security) && $this->action == 'process'){
+			$this->Security->validatePost = false;
+		}
 	}
 
-	/**
-	  * Paypal IPN processing action..
-	  * This action is the intake for a paypal_ipn callback performed by paypal itself.
-	  * This action will take the paypal callback, verify it (so trickery) and save the transaction into your database for later review
-	  *
-	  * @access public
-	  * @author Nick Baker
-	  */
+/**
+ * Paypal IPN processing action..
+ * This action is the intake for a paypal_ipn callback performed by paypal itself.
+ * This action will take the paypal callback, verify it (so trickery) and save the transaction into your database for later review
+ *
+ * @access public
+ * @author Nick Baker
+ */
 	public function process($id = null){
 		$debugging = (Configure::read('debug') && !is_null($id));
 		if ($debugging) {
@@ -60,37 +59,54 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
 			$result = 'empty';
 		}
 
+/**
+ * Paypal IPN processing action..
+ * This action is the intake for a paypal_ipn callback performed by paypal itself.
+ * This action will take the paypal callback, verify it (so trickery) and save the transaction into your database for later review
+ *
+ * @access public
+ * @author Nick Baker
+ */
+	public function process(){
+		$data = $this->request->data;
+		$data['valid'] = $this->InstantPaymentNotification->is_valid($data);
+
+		$notification = $this->InstantPaymentNotification->buildAssociationsFromIPN($data);
+		$this->InstantPaymentNotification->saveAll($notification);
+		$this->__processTransaction($this->InstantPaymentNotification->id);
+
+		$this->log(json_encode($data), 'paypal-ipn');
 
 	  exit($result);
   }
 
-  /**
-    * __processTransaction is a private callback function used to log a verified transaction
-    * @access private
-    * @param String $txnId is the string paypal ID and the id used in your database.
-    */
-  private function __processTransaction($txnId){
-    $this->log("Processing Trasaction: $txnId",'paypal');
-    //Put the afterPaypalNotification($txnId) into your app_controller.php
-    $this->afterPaypalNotification($txnId);
-  }
+/**
+ * __processTransaction is a private callback function used to log a verified transaction
+ * @access private
+ * @param String $txnId is the string paypal ID and the id used in your database.
+ */
+	private function __processTransaction($txnId){
+		$this->log("Processing Trasaction: $txnId",'paypal');
+		//Put the afterPaypalNotification($txnId) into your app_controller.php
+		$this->afterPaypalNotification($txnId);
+	}
 
-	/**
-	  * Admin Only Functions... all baked
-	  */
+/**
+ * Admin Only Functions... all baked
+ */
 
-	/**
-	  * Admin Index
-	  */
+/**
+ * Admin Index
+ */
 	public function admin_index() {
 		$this->InstantPaymentNotification->recursive = 0;
 		$this->set('instantPaymentNotifications', $this->paginate());
 	}
 
-	/**
-	  * Admin View
-	  * @param String ID of the transaction to view
-	  */
+/**
+ * Admin View
+ * @param String ID of the transaction to view
+ */
 	public function admin_view($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid InstantPaymentNotification.', true));
@@ -99,17 +115,17 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
 		$this->set('instantPaymentNotification', $this->InstantPaymentNotification->read(null, $id));
 	}
 
-	/**
-	  * Admin Add
-	  */
+/**
+ * Admin Add
+ */
 	public function admin_add(){
-	   $this->redirect(array('admin' => true, 'action' => 'edit'));
+		$this->redirect(array('admin' => true, 'action' => 'edit'));
 	}
 
-	/**
-	  * Admin Edit
-	  * @param String ID of the transaction to edit
-	  */
+/**
+ * Admin Edit
+ * @param String ID of the transaction to edit
+ */
 	public function admin_edit($id = null) {
 		if (!empty($this->data)) {
 			if ($this->InstantPaymentNotification->save($this->data)) {
@@ -124,10 +140,10 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
 		}
 	}
 
-	/**
-	  * Admin Delete
-	  * @param String ID of the transaction to delete
-	  */
+/**
+ * Admin Delete
+ * @param String ID of the transaction to delete
+ */
 	public function admin_delete($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for InstantPaymentNotification', true));
@@ -140,4 +156,3 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
 	}
 
 }
-?>
