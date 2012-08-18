@@ -32,15 +32,14 @@ class PaypalIpnSource extends DataSource {
     * @param array $data Most likely directly $_POST given by the controller.
     * @return boolean true | false depending on if data received is actually valid from paypal and not from some script monkey
     */
-  function isValid($data){
+  function isValid($data, $test = false){
     if (env('SERVER_ADDR') === env('REMOTE_ADDR') ||
         preg_match('/paypal\.com$/', gethostbyaddr(env('REMOTE_ADDR')))
     ) {
-      if(isset($data['test_ipn'])) {
-        $server = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_notify-validate';
-      } else {
-        $server = 'https://www.paypal.com/cgi-bin/webscr?cmd=_notify-validate';
-      }
+
+      $server = $test
+        ? 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_notify-validate'
+        : 'https://www.paypal.com/cgi-bin/webscr?cmd=_notify-validate';
 
       $response = $this->Http->post($server, $data);
 
