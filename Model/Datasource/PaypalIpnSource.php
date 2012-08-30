@@ -33,8 +33,8 @@ class PaypalIpnSource extends DataSource {
     * @return boolean true | false depending on if data received is actually valid from paypal and not from some script monkey
     */
   function isValid($data, $test = false){
-    if (env('SERVER_ADDR') === env('REMOTE_ADDR') ||
-        preg_match('/paypal\.com$/', gethostbyaddr(env('REMOTE_ADDR')))
+    if (env('SERVER_ADDR') === remote_ip() ||
+        preg_match('/paypal\.com$/', gethostbyaddr(remote_ip()))
     ) {
 
       $server = $test
@@ -51,7 +51,7 @@ class PaypalIpnSource extends DataSource {
         $this->log('HTTP Error in PaypalIpnSource::isValid while posting back to PayPal', 'paypal');
       }
     } else {
-      $this->log('IPN Notification comes from unknown IP: '.env('REMOTE_ADDR'), 'paypal');
+      $this->log('IPN Notification comes from unknown IP: '.remote_ip(), 'paypal');
     }
 
     return false;
