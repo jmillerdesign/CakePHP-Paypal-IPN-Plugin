@@ -13,7 +13,7 @@ class PaypalIpnSchema extends CakeSchema {
   public $instant_payment_notifications = array(
     'id' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 36, 'key' => 'primary', 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
     'pay_key' => array('type' => 'string', 'null' => true, 'default' => NULL, 'key' => 'index', 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-    'dropbox_file_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+    'sell_file_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
     'valid' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
     'notify_version' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 64, 'collate' => 'utf8_unicode_ci', 'comment' => 'IPN Version Number', 'charset' => 'utf8'),
     'verify_sign' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 127, 'collate' => 'utf8_unicode_ci', 'comment' => 'Encrypted string used to verify the authenticityof the tansaction', 'charset' => 'utf8'),
