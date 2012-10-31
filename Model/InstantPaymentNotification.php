@@ -1,5 +1,7 @@
 <?php
+
 App::uses('PaypalIpnSource', 'PaypalIpn.Model/Datasource');
+App::uses('CakeEmail', 'Network/Email');
 
 /**
  * @property PaypalItem $PaypalItem Model hasMany
@@ -107,8 +109,7 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
 		}
 		$fullname = __d('paypal_ipn', '%s %s', $this->data['InstantPaymentNotification']['first_name'], $this->data['InstantPaymentNotification']['last_name']);
 
-		App::uses('CakeEmail', 'Network/Email');
-		$Email = new CakeEmail($options['config']);
+		$Email = $this->_getCakeEmail($options['config']);
 		$Email->to($options['to'], $fullname)
 			->from($options['from'])
 			->subject($options['subject'])
@@ -168,6 +169,16 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
  */
 	protected function _getPaypalIpnSource() {
 		return new PaypalIpnSource();
+	}
+
+/**
+ * get CakeEmail
+ *
+ * @param string $config
+ * @return \CakeEmail
+ */
+	protected function _getCakeEmail($config = null) {
+		return new CakeEmail($config);
 	}
 
 }

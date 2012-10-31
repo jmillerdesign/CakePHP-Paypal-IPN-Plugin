@@ -2,15 +2,12 @@
 
 /**
  * @property InstantPaymentNotification $InstantPaymentNotification Model
- * @property EmailComponent $Email Component
  */
 class InstantPaymentNotificationsController extends PaypalIpnAppController {
 
 	public $name = 'InstantPaymentNotifications';
 
 	public $helpers = array('Html', 'Form');
-
-	public $components = array('Email');
 
 /**
  * beforeFilter makes sure the process is allowed by auth
