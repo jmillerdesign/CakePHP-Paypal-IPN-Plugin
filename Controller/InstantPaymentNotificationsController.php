@@ -15,12 +15,10 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
  */
 	public function beforeFilter() {
 		parent::beforeFilter();
-		foreach (array_keys($this->components) as $component) {
-			if (is_a($this->{$component}, 'AuthComponent')) {
-				$this->{$component}->allow('process');
-			}
+		if ($this->Components->enabled('Auth')) {
+			$this->Auth->allow('process');
 		}
-		if (isset($this->Security) && $this->action == 'process') {
+		if (isset($this->Security) && $this->action === 'process') {
 			$this->Security->validatePost = false;
 		}
 	}
