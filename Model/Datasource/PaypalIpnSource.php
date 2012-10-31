@@ -42,6 +42,15 @@ class PaypalIpnSource extends DataSource {
 	}
 
 /**
+ * get post data
+ *
+ * @return string
+ */
+	public function getRawPostData() {
+		return file_get_contents('php://input');
+	}
+
+/**
  * verifies POST data given by the paypal instant payment notification
  * @param array $data Most likely directly $_POST given by the controller.
  * @return boolean true | false depending on if data received is actually valid from paypal and not from some script monkey

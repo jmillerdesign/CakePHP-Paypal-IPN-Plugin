@@ -153,6 +153,23 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
 		return $retval;
 	}
 
+/**
+ * get post data
+ *
+ * @param string $id InstantPaymentNotification.id
+ * @return string
+ */
+	public function getRaw($id = null) {
+		if (Configure::read('debug') && !is_null($id)) {
+			// debugging
+			$ipn = $this->findById($id);
+			$raw = $ipn[$this->alias]['raw'];
+		} else {
+			$raw = $this->_getPaypalIpnSource()->getRawPostData();
+		}
+		return $raw;
+	}
+
 	public function parseRaw($raw) {
 		$data = explode('&', urldecode($raw));
 		foreach ($data as &$r) {
@@ -168,7 +185,11 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
  * @return \PaypalIpnSource
  */
 	protected function _getPaypalIpnSource() {
-		return new PaypalIpnSource();
+		static $paypal;
+		if (!isset($paypal)) {
+			$paypal = new PaypalIpnSource();
+		}
+		return $paypal;
 	}
 
 /**
