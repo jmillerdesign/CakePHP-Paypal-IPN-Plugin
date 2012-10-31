@@ -91,8 +91,8 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
 		$defaults = array(
 			'subject' => __d('paypal_ipn', 'Thank you for your paypal transaction'),
 			'sendAs' => 'html',
-			'to' => $this->data['InstantPaymentNotification']['payer_email'],
-			'from' => $this->data['InstantPaymentNotification']['business'],
+			'to' => $this->data[$this->alias]['payer_email'],
+			'from' => $this->data[$this->alias]['business'],
 			'cc' => array(),
 			'bcc' => array(),
 			'layout' => 'default',
@@ -107,7 +107,7 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
 		if ($options['log']) {
 			$this->log(__d('paypal_ipn', "Emailing: %s through the PayPal IPN Plugin.", $options['to']), 'email');
 		}
-		$fullname = __d('paypal_ipn', '%s %s', $this->data['InstantPaymentNotification']['first_name'], $this->data['InstantPaymentNotification']['last_name']);
+		$fullname = __d('paypal_ipn', '%s %s', $this->data[$this->alias]['first_name'], $this->data[$this->alias]['last_name']);
 
 		$Email = $this->_getCakeEmail($options['config']);
 		$Email->to($options['to'], $fullname)
@@ -135,19 +135,19 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
  */
 	public function buildAssociationsFromIPN($post) {
 		$retval = array();
-		$retval['InstantPaymentNotification'] = $post;
+		$retval[$this->alias] = $post;
 		if (isset($post['num_cart_items']) && $post['num_cart_items'] > 0) {
-			$retval['PaypalItem'] = array();
+			$retval[$this->PaypalItem->alias] = array();
 			for ($i = 1; $i <= $post['num_cart_items']; $i++) {
 				$key = $i - 1;
-				$retval['PaypalItem'][$key]['item_name'] = $post["item_name$i"];
-				$retval['PaypalItem'][$key]['item_number'] = $post["item_number$i"];
-				$retval['PaypalItem'][$key]['item_number'] = $post["item_number$i"];
-				$retval['PaypalItem'][$key]['quantity'] = $post["quantity$i"];
-				$retval['PaypalItem'][$key]['mc_shipping'] = $post["mc_shipping$i"];
-				$retval['PaypalItem'][$key]['mc_handling'] = $post["mc_handling$i"];
-				$retval['PaypalItem'][$key]['mc_gross'] = $post["mc_gross_$i"];
-				$retval['PaypalItem'][$key]['tax'] = $post["tax$i"];
+				$retval[$this->PaypalItem->alias][$key]['item_name'] = $post["item_name$i"];
+				$retval[$this->PaypalItem->alias][$key]['item_number'] = $post["item_number$i"];
+				$retval[$this->PaypalItem->alias][$key]['item_number'] = $post["item_number$i"];
+				$retval[$this->PaypalItem->alias][$key]['quantity'] = $post["quantity$i"];
+				$retval[$this->PaypalItem->alias][$key]['mc_shipping'] = $post["mc_shipping$i"];
+				$retval[$this->PaypalItem->alias][$key]['mc_handling'] = $post["mc_handling$i"];
+				$retval[$this->PaypalItem->alias][$key]['mc_gross'] = $post["mc_gross_$i"];
+				$retval[$this->PaypalItem->alias][$key]['tax'] = $post["tax$i"];
 			}
 		}
 		return $retval;
