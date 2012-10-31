@@ -87,7 +87,7 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
 
 		$this->read();
 		$defaults = array(
-			'subject' => 'Thank you for your paypal transaction',
+			'subject' => __d('paypal_ipn', 'Thank you for your paypal transaction'),
 			'sendAs' => 'html',
 			'to' => $this->data['InstantPaymentNotification']['payer_email'],
 			'from' => $this->data['InstantPaymentNotification']['business'],
@@ -103,9 +103,9 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
 
 		//debug($options);
 		if ($options['log']) {
-			$this->log("Emailing: {$options['to']} through the PayPal IPN Plugin. ", 'email');
+			$this->log(__d('paypal_ipn', "Emailing: %s through the PayPal IPN Plugin.", $options['to']), 'email');
 		}
-		$fullname = sprintf('%s %s', $this->data['InstantPaymentNotification']['first_name'], $this->data['InstantPaymentNotification']['last_name']);
+		$fullname = __d('paypal_ipn', '%s %s', $this->data['InstantPaymentNotification']['first_name'], $this->data['InstantPaymentNotification']['last_name']);
 
 		App::uses('CakeEmail', 'Network/Email');
 		$Email = new CakeEmail($options['config']);

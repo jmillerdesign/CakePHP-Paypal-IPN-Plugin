@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2012-10-31 18:32+0900\n"
+"POT-Creation-Date: 2012-10-31 18:38+0900\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -56,6 +56,18 @@ msgstr ""
 
 #: Controller/PaypalItemsController.php:51
 msgid "PaypalItem deleted"
+msgstr ""
+
+#: Model/InstantPaymentNotification.php:90
+msgid "Thank you for your paypal transaction"
+msgstr ""
+
+#: Model/InstantPaymentNotification.php:106
+msgid "Emailing: %s through the PayPal IPN Plugin."
+msgstr ""
+
+#: Model/InstantPaymentNotification.php:108
+msgid "%s %s"
 msgstr ""
 
 #: Model/Datasource/PaypalIpnSource.php:63
