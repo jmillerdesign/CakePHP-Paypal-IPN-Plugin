@@ -75,7 +75,7 @@ class PaypalHelper extends AppHelper {
 		switch ($options['type']) {
 			case 'subscribe': //Subscribe
 				$options['cmd'] = '_xclick-subscriptions';
-				$default_title = 'Subscribe';
+				$defaultTitle = __d('paypal_ipn', 'Subscribe');
 				$options['no_note'] = 1;
 				$options['no_shipping'] = 1;
 				$options['src'] = 1;
@@ -85,35 +85,35 @@ class PaypalHelper extends AppHelper {
 			case 'addtocart': //Add To Cart
 				$options['cmd'] = '_cart';
 				$options['add'] = '1';
-				$default_title = 'Add To Cart';
+				$defaultTitle = __d('paypal_ipn', 'Add To Cart');
 				break;
 			case 'viewcart': //View Cart
 				$options['cmd'] = '_cart';
 				$options['display'] = '1';
-				$default_title = 'View Cart';
+				$defaultTitle = __d('paypal_ipn', 'View Cart');
 				break;
 			case 'donate': //Doante
 				$options['cmd'] = '_donations';
-				$default_title = 'Donate';
+				$defaultTitle = __d('paypal_ipn', 'Donate');
 				break;
 			case 'unsubscribe': //Unsubscribe
 				$options['cmd'] = '_subscr-find';
 				$options['alias'] = $options['business'];
-				$default_title = 'Unsubscribe';
+				$defaultTitle = __d('paypal_ipn', 'Unsubscribe');
 				break;
 			case 'cart': //upload cart
 				$options['cmd'] = '_cart';
 				$options['upload'] = 1;
-				$default_title = 'Checkout';
+				$defaultTitle = __d('paypal_ipn', 'Checkout');
 				$options = $this->__uploadCartOptions($options);
 				break;
 			default: //Pay Now
 				$options['cmd'] = '_xclick';
-				$default_title = 'Pay Now';
+				$defaultTitle = __d('paypal_ipn', 'Pay Now');
 				break;
 		}
 
-		$title = (empty($title)) ? $default_title : $title;
+		$title = (empty($title)) ? $defaultTitle : $title;
 		$retval = "<form action='{$options['server']}/cgi-bin/webscr' method='post'><div class='paypal-form'>";
 		unset($options['server']);
 		foreach ($options as $name => $value) {
@@ -153,12 +153,12 @@ class PaypalHelper extends AppHelper {
 /**
  * __subscriptionOptions conversts human readable subscription terms
  * into paypal terms if need be
- *  @access private
- *  @param array options | human readable options into paypal API options
+ * @access private
+ * @param array options | human readable options into paypal API options
  *     INT period //paypal api period of term, 2, 3, 1
  *     String term //paypal API term //month, year, day, week
  *     Float amount //paypal API amount to charge for perioud of term.
- *  @return array options
+ * @return array options
  */
 	private function __subscriptionOptions($options = array()) {
 		//Period... every 1, 2, 3, etc.. Term

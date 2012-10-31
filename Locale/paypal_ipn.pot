@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2012-10-31 18:38+0900\n"
+"POT-Creation-Date: 2012-10-31 19:04+0900\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,27 +14,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: Controller/InstantPaymentNotificationsController.php:78
+#: Controller/InstantPaymentNotificationsController.php:75
 msgid "Processing Trasaction: %s"
 msgstr ""
 
-#: Controller/InstantPaymentNotificationsController.php:101
+#: Controller/InstantPaymentNotificationsController.php:98
 msgid "Invalid InstantPaymentNotification."
 msgstr ""
 
-#: Controller/InstantPaymentNotificationsController.php:121
+#: Controller/InstantPaymentNotificationsController.php:118
 msgid "The InstantPaymentNotification has been saved"
 msgstr ""
 
-#: Controller/InstantPaymentNotificationsController.php:124
+#: Controller/InstantPaymentNotificationsController.php:121
 msgid "The InstantPaymentNotification could not be saved. Please, try again."
 msgstr ""
 
-#: Controller/InstantPaymentNotificationsController.php:138
+#: Controller/InstantPaymentNotificationsController.php:135
 msgid "Invalid id for InstantPaymentNotification"
 msgstr ""
 
-#: Controller/InstantPaymentNotificationsController.php:142
+#: Controller/InstantPaymentNotificationsController.php:139
 msgid "InstantPaymentNotification deleted"
 msgstr ""
 
@@ -58,15 +58,15 @@ msgstr ""
 msgid "PaypalItem deleted"
 msgstr ""
 
-#: Model/InstantPaymentNotification.php:90
+#: Model/InstantPaymentNotification.php:92
 msgid "Thank you for your paypal transaction"
 msgstr ""
 
-#: Model/InstantPaymentNotification.php:106
+#: Model/InstantPaymentNotification.php:108
 msgid "Emailing: %s through the PayPal IPN Plugin."
 msgstr ""
 
-#: Model/InstantPaymentNotification.php:108
+#: Model/InstantPaymentNotification.php:110
 msgid "%s %s"
 msgstr ""
 
@@ -76,6 +76,34 @@ msgstr ""
 
 #: Model/Datasource/PaypalIpnSource.php:66
 msgid "IPN Notification comes from unknown IP: %s"
+msgstr ""
+
+#: View/Helper/PaypalHelper.php:78
+msgid "Subscribe"
+msgstr ""
+
+#: View/Helper/PaypalHelper.php:88
+msgid "Add To Cart"
+msgstr ""
+
+#: View/Helper/PaypalHelper.php:93
+msgid "View Cart"
+msgstr ""
+
+#: View/Helper/PaypalHelper.php:97
+msgid "Donate"
+msgstr ""
+
+#: View/Helper/PaypalHelper.php:102
+msgid "Unsubscribe"
+msgstr ""
+
+#: View/Helper/PaypalHelper.php:107
+msgid "Checkout"
+msgstr ""
+
+#: View/Helper/PaypalHelper.php:112
+msgid "Pay Now"
 msgstr ""
 
 #: View/InstantPaymentNotifications/admin_edit.ctp:98
