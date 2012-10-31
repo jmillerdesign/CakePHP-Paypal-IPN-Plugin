@@ -2,7 +2,6 @@
 
 App::uses('PaypalIpnSource', 'PaypalIpn.Model/Datasource');
 App::uses('HttpSocket', 'Network/Http');
-App::uses('HttpResponse', 'Network/Http');
 
 /**
  * @property PaypalIpnSource $PaypalIpn
@@ -11,48 +10,94 @@ class PaypalIpnSourceTestCase extends CakeTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		//Mock::generatePartial('HttpSocket', 'MockHttpSocket', array('post'));
-		$this->PaypalIpn = new PaypalIpnSource(array());
+		$PaypalIpn = $this->getMock('PaypalIpnSource', array('log'));
+		$PaypalIpn->Http = $this->getMock('HttpSocket', array('post'));
+		$this->PaypalIpn = $PaypalIpn;
 
-		if (!class_exists('MockHttpSocket')) {
-			//$this->getMock('TestHttpSocket', array('read', 'write', 'connect'), array(), 'MockHttpSocket');
-			//$this->getMock('TestHttpSocket', array('read', 'write', 'connect', 'request'), array(), 'MockHttpSocketRequests');
+		if (PHP_SAPI === 'cli') {
+			// on cli mode
+			$_SERVER['SERVER_ADDR'] = '127.0.0.1';
+			$_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 		}
-
-		$this->PaypalIpn->Http = new HttpSocket();
 	}
 
 	public function tearDown() {
 		unset($this->PaypalIpn);
 		parent::tearDown();
+		ob_flush();
 	}
 
 	public function testIsValidShouldBeFalse() {
 		$this->assertFalse($this->PaypalIpn->isValid(array()));
 	}
 
-	public function testIsValid() {
-		$data = array(
-			'test' => 'string'
-		);
+/**
+ * @dataProvider isValidDataProvider
+ */
+	public function testIsValid($label, $preset, $expects) {
+		$this->PaypalIpn->Http->expects($this->once())
+			->method('post')
+			->with($expects['postUrl'], $expects['postData'])
+			->will($this->returnValue($preset['postReturn']));
 
-		$this->once()->method('post')->with(array(
-			'https://www.paypal.com/cgi-bin/webscr',
+		$this->assertSame($expects['result'], $this->PaypalIpn->isValid($preset['data'], $preset['test']));
+	}
+
+	public function isValidDataProvider() {
+		return array(
 			array(
-				'test' => 'string',
-				'cmd' => '_notify-validate'
-			)));
-		/*
-		  $this->PaypalIpn->Http->expectOnce('post', array(
-		  'https://www.paypal.com/cgi-bin/webscr',
-		  array(
-		  'test' => 'string',
-		  'cmd' => '_notify-validate'
-		  )
-		  ));
-		 */
-		$this->PaypalIpn->Http->setReturnValue('post', 'VERIFIED');
-		$this->assertTrue($this->PaypalIpn->isValid($data));
+				'production url',
+				array(
+					'data' => array('test' => 'string'),
+					'test' => false,
+					'postReturn' => 'VERIFIED',
+				),
+				array(
+					'postUrl' => 'https://www.paypal.com/cgi-bin/webscr?cmd=_notify-validate',
+					'postData' => array('test' => 'string'),
+					'result' => true,
+				),
+			),
+			array(
+				'sandbox url',
+				array(
+					'data' => array('test' => 'string'),
+					'test' => true,
+					'postReturn' => 'VERIFIED',
+				),
+				array(
+					'postUrl' => 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_notify-validate',
+					'postData' => array('test' => 'string'),
+					'result' => true,
+				),
+			),
+			array(
+				'illigal response',
+				array(
+					'data' => array('test' => 'string'),
+					'test' => false,
+					'postReturn' => 'FAILURE',
+				),
+				array(
+					'postUrl' => 'https://www.paypal.com/cgi-bin/webscr?cmd=_notify-validate',
+					'postData' => array('test' => 'string'),
+					'result' => false,
+				),
+			),
+			array(
+				'response error',
+				array(
+					'data' => array('test' => 'string'),
+					'test' => false,
+					'postReturn' => false,
+				),
+				array(
+					'postUrl' => 'https://www.paypal.com/cgi-bin/webscr?cmd=_notify-validate',
+					'postData' => array('test' => 'string'),
+					'result' => false,
+				),
+			),
+		);
 	}
 
 }
