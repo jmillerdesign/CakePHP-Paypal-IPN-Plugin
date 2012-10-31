@@ -47,7 +47,7 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
 
 		if (!empty($raw)) {
 			$data = $this->InstantPaymentNotification->parseRaw($raw);
-			$data['valid'] = $this->InstantPaymentNotification->is_valid($raw);
+			$data['valid'] = $this->InstantPaymentNotification->isValid($raw);
 			$data['ip'] = remote_ip();
 			$data['raw'] = $raw;
 
