@@ -9,6 +9,8 @@ App::uses('PaypalIpnEmptyRawDataExpection', 'PaypalIpn.Lib/Error');
  */
 class InstantPaymentNotification extends PaypalIpnAppModel {
 
+	const EVENT_AFTER_PROCESS = 'PaypalIpn.afterProcess';
+
 	public $name = 'InstantPaymentNotification';
 
 	public $hasMany = array(
@@ -55,6 +57,11 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
 
 		// save
 		$this->InstantPaymentNotification->saveAll($saveData);
+
+		// dispatch event
+		$this->getEventManager()->dispatch(new CakeEvent(
+			self::EVENT_AFTER_PROCESS, $this, array('id' => $id)
+		));
 
 		return $data['valid'] ? 'Valid' : 'Invalid';
 	}
