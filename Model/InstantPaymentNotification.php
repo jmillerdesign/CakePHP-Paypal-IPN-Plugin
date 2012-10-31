@@ -20,13 +20,13 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
 /**
  * verifies POST data given by the paypal instant payment notification
  *
- * @param array $data Most likely directly $_POST given by the controller.
+ * @param string $raw post data
  * @return boolean true | false depending on if data received is actually valid from paypal and not from some script monkey
  */
-	public function isValid($data) {
-		if (!empty($data)) {
-			$parse = $this->parseRaw($data);
-			return $this->_getPaypalIpnSource()->isValid($data, !empty($parse['test_ipn']));
+	public function isValid($raw) {
+		if (!empty($raw)) {
+			$parse = $this->parseRaw($raw);
+			return $this->_getPaypalIpnSource()->isValid($raw, !empty($parse['test_ipn']));
 		}
 		return false;
 	}
