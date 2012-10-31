@@ -16,7 +16,7 @@ class PaypalItemsController extends PaypalIpnAppController {
 
 	public function admin_view($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid PaypalItem.', true));
+			$this->Session->setFlash(__d('paypal_ipn', 'Invalid PaypalItem.'));
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('paypalItem', $this->PaypalItem->read(null, $id));
@@ -29,10 +29,10 @@ class PaypalItemsController extends PaypalIpnAppController {
 	public function admin_edit($id = null) {
 		if (!empty($this->data)) {
 			if ($this->PaypalItem->save($this->data)) {
-				$this->Session->setFlash(__('The PaypalItem has been saved', true));
+				$this->Session->setFlash(__d('paypal_ipn', 'The PaypalItem has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The PaypalItem could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__d('paypal_ipn', 'The PaypalItem could not be saved. Please, try again.'));
 			}
 		}
 		if ($id && empty($this->data)) {
@@ -44,11 +44,11 @@ class PaypalItemsController extends PaypalIpnAppController {
 
 	public function admin_delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for PaypalItem', true));
+			$this->Session->setFlash(__d('paypal_ipn', 'Invalid id for PaypalItem'));
 			$this->redirect(array('action' => 'index'));
 		}
 		if ($this->PaypalItem->delete($id)) {
-			$this->Session->setFlash(__('PaypalItem deleted', true));
+			$this->Session->setFlash(__d('paypal_ipn', 'PaypalItem deleted'));
 			$this->redirect(array('action' => 'index'));
 		}
 	}

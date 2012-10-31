@@ -60,10 +60,10 @@ class PaypalIpnSource extends DataSource {
 			}
 
 			if (!$response) {
-				$this->log('HTTP Error in PaypalIpnSource::isValid while posting back to PayPal', 'paypal');
+				$this->log(__d('paypal_ipn', 'HTTP Error in PaypalIpnSource::isValid while posting back to PayPal'), 'paypal');
 			}
 		} else {
-			$this->log('IPN Notification comes from unknown IP: ' . self::getRemoteIp(), 'paypal');
+			$this->log(__d('paypal_ipn', 'IPN Notification comes from unknown IP: %s', self::getRemoteIp()), 'paypal');
 		}
 
 		return false;

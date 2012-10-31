@@ -75,7 +75,7 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
  * @param String $txnId is the string paypal ID and the id used in your database.
  */
 	private function __processTransaction($txnId) {
-		$this->log("Processing Trasaction: $txnId",'paypal');
+		$this->log(__d('paypal_ipn', 'Processing Trasaction: %s', $txnId), 'paypal');
 		//Put the afterPaypalNotification($txnId) into your app_controller.php
 		$this->afterPaypalNotification($txnId);
 	}
@@ -98,7 +98,7 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
  */
 	public function admin_view($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid InstantPaymentNotification.', true));
+			$this->Session->setFlash(__d('paypal_ipn', 'Invalid InstantPaymentNotification.'));
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('instantPaymentNotification', $this->InstantPaymentNotification->read(null, $id));
@@ -118,10 +118,10 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
 	public function admin_edit($id = null) {
 		if (!empty($this->data)) {
 			if ($this->InstantPaymentNotification->save($this->data)) {
-				$this->Session->setFlash(__('The InstantPaymentNotification has been saved', true));
+				$this->Session->setFlash(__d('paypal_ipn', 'The InstantPaymentNotification has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The InstantPaymentNotification could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__d('paypal_ipn', 'The InstantPaymentNotification could not be saved. Please, try again.'));
 			}
 		}
 		if ($id && empty($this->data)) {
@@ -135,11 +135,11 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
  */
 	public function admin_delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for InstantPaymentNotification', true));
+			$this->Session->setFlash(__d('paypal_ipn', 'Invalid id for InstantPaymentNotification'));
 			$this->redirect(array('action' => 'index'));
 		}
 		if ($this->InstantPaymentNotification->delete($id)) {
-			$this->Session->setFlash(__('InstantPaymentNotification deleted', true));
+			$this->Session->setFlash(__d('paypal_ipn', 'InstantPaymentNotification deleted'));
 			$this->redirect(array('action' => 'index'));
 		}
 	}
