@@ -51,6 +51,21 @@ class PaypalIpnSource extends DataSource {
 	}
 
 /**
+ * parse ipn response
+ *
+ * @param string $raw
+ * @return array
+ */
+	public function parseRaw($raw) {
+		$data = explode('&', urldecode($raw));
+		foreach ($data as &$r) {
+			$r = preg_replace('/transaction\[([0-9]+)\]\.(.+)=(.+)/', 'transaction[$1][$2]=$3', $r);
+		}
+		parse_str(join('&', $data), $data);
+		return $data;
+	}
+
+/**
  * verifies POST data given by the paypal instant payment notification
  * @param array $data Most likely directly $_POST given by the controller.
  * @return boolean true | false depending on if data received is actually valid from paypal and not from some script monkey

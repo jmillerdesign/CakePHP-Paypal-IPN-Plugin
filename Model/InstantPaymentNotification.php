@@ -171,12 +171,7 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
 	}
 
 	public function parseRaw($raw) {
-		$data = explode('&', urldecode($raw));
-		foreach ($data as &$r) {
-			$r = preg_replace('/transaction\[([0-9]+)\]\.(.+)=(.+)/', 'transaction[$1][$2]=$3', $r);
-		}
-		parse_str(join('&', $data), $data);
-		return $data;
+		return $this->_getPaypalIpnSource()->parseRaw($raw);
 	}
 
 /**
