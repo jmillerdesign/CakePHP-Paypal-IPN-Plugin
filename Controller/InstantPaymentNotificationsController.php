@@ -32,30 +32,13 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
  * @author Nick Baker
  */
 	public function process($id = null) {
-		$debugging = (Configure::read('debug') && !is_null($id));
-		$raw = $this->InstantPaymentNotification->getRaw($id);
-
-		if (!empty($raw)) {
-			$data = $this->InstantPaymentNotification->parseRaw($raw);
-			$data['valid'] = $this->InstantPaymentNotification->isValid($raw);
-			$data['ip'] = PaypalIpnSource::getRemoteIp();
-			$data['raw'] = $raw;
-
-			$result = $data['valid'] ? 'Valid' : 'Invalid';
-
-			$notification = $this->InstantPaymentNotification->buildAssociationsFromIPN($data);
-
-			if ($debugging) {
-				$this->InstantPaymentNotification->id = $id;
-				$notification[$this->InstantPaymentNotification->alias]['id'] = $id;
-			}
-
-			$this->InstantPaymentNotification->saveAll($notification);
+		$result = null;
+		try {
+			$result = $this->InstantPaymentNotification->process($id);
 			$this->__processTransaction($this->InstantPaymentNotification->id);
-		} else {
+		} catch (PaypalIpnEmptyRawDataExpection $e) {
 			$result = 'empty';
 		}
-
 		$this->_stop($result);
 	}
 

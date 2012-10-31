@@ -2,6 +2,7 @@
 
 App::uses('PaypalIpnSource', 'PaypalIpn.Model/Datasource');
 App::uses('CakeEmail', 'Network/Email');
+App::uses('PaypalIpnEmptyRawDataExpection', 'PaypalIpn.Lib/Error');
 
 /**
  * @property PaypalItem $PaypalItem Model hasMany
@@ -33,6 +34,38 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
 			return $this->_getPaypalIpnSource()->isValid($data, !empty($parse['test_ipn']));
 		}
 		return false;
+	}
+
+/**
+ * recive ipn response
+ *
+ * @param string $id InstantPaymentNotification.id
+ * @return string 'Valid' or 'Invalid'
+ * @throws PaypalIpnEmptyRawDataExpection
+ */
+	public function process($id = null) {
+		$raw = $this->getRaw($id);
+		if (empty($raw)) {
+			throw new PaypalIpnEmptyRawDataExpection(__d('paypal_ipn', 'raw data is empty.'));
+		}
+
+		// create save data
+		$data = $this->parseRaw($raw);
+		$data['valid'] = $this->isValid($raw);
+		$data['ip'] = PaypalIpnSource::getRemoteIp();
+		$data['raw'] = $raw;
+
+		// build associations data
+		$saveData = $this->buildAssociationsFromIPN($data);
+
+		if (Configure::read('debug') && !is_null($id)) {
+			$this->id = $id;
+			$saveData[$this->alias][$this->primaryKey] = $id;
+		}
+
+		$this->InstantPaymentNotification->saveAll($saveData);
+
+		return $data['valid'] ? 'Valid' : 'Invalid';
 	}
 
 /**
