@@ -1,4 +1,5 @@
 <?php
+App::uses('PaypalIpnSource', 'PaypalIpn.Model/Datasource');
 
 /**
  * @property PaypalItem $PaypalItem Model hasMany
@@ -166,7 +167,6 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
  * @return \PaypalIpnSource
  */
 	protected function _getPaypalIpnSource() {
-		App::uses('PaypalIpnSource', 'PaypalIpn.Model/Datasource');
 		return new PaypalIpnSource();
 	}
 
