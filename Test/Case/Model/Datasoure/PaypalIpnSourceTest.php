@@ -4,9 +4,10 @@ App::uses('PaypalIpnSource', 'PaypalIpn.Model/Datasource');
 App::uses('HttpSocket', 'Network/Http');
 App::uses('HttpResponse', 'Network/Http');
 
-class PaypalIpnTestCase extends CakeTestCase {
-
-	public $PaypalIpn = null;
+/**
+ * @property PaypalIpnSource $PaypalIpn
+ */
+class PaypalIpnSourceTestCase extends CakeTestCase {
 
 	public function setUp() {
 		parent::setUp();
