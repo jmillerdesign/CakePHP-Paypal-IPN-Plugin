@@ -9,12 +9,6 @@ App::uses('PaypalIpnEmptyRawDataExpection', 'PaypalIpn.Lib/Error');
  */
 class InstantPaymentNotification extends PaypalIpnAppModel {
 
-/**
- * name is the name of the model
- *
- * @var $name string
- * @access public
- */
 	public $name = 'InstantPaymentNotification';
 
 	public $hasMany = array(
@@ -25,6 +19,7 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
 
 /**
  * verifies POST data given by the paypal instant payment notification
+ *
  * @param array $data Most likely directly $_POST given by the controller.
  * @return boolean true | false depending on if data received is actually valid from paypal and not from some script monkey
  */
@@ -58,11 +53,7 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
 		// build associations data
 		$saveData = $this->buildAssociationsFromIPN($data);
 
-		if (Configure::read('debug') && !is_null($id)) {
-			$this->id = $id;
-			$saveData[$this->alias][$this->primaryKey] = $id;
-		}
-
+		// save
 		$this->InstantPaymentNotification->saveAll($saveData);
 
 		return $data['valid'] ? 'Valid' : 'Invalid';
@@ -191,18 +182,19 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
  *
  * @param string $id InstantPaymentNotification.id
  * @return string
+ * @deprecated
  */
 	public function getRaw($id = null) {
-		if (Configure::read('debug') && !is_null($id)) {
-			// debugging
-			$ipn = $this->findById($id);
-			$raw = $ipn[$this->alias]['raw'];
-		} else {
-			$raw = $this->_getPaypalIpnSource()->getRawPostData();
-		}
-		return $raw;
+		return $this->_getPaypalIpnSource()->getRawPostData();
 	}
 
+/**
+ * parse raw data
+ *
+ * @param string $raw
+ * @return array
+ * @deprecated
+ */
 	public function parseRaw($raw) {
 		return $this->_getPaypalIpnSource()->parseRaw($raw);
 	}
