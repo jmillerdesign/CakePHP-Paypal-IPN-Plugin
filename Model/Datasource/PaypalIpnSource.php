@@ -3,14 +3,10 @@
 App::uses('DataSource', 'Model/Datasource');
 App::uses('HttpSocket', 'Network/Http');
 
-class PaypalIpnSource extends DataSource {
-
 /**
- * Http is the HttpSocket Object.
- * @access public
- * @var object
+ * @property HttpSocket $Http
  */
-	public $Http = null;
+class PaypalIpnSource extends DataSource {
 
 /**
  * constructer.  Load the HttpSocket into the Http var.

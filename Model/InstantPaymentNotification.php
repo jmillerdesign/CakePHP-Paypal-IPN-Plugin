@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @property PaypalItem $PaypalItem Model hasMany
+ */
 class InstantPaymentNotification extends PaypalIpnAppModel {
 
 /**

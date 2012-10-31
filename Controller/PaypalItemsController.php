@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @property PaypalItem $PaypalItem Model
+ */
 class PaypalItemsController extends PaypalIpnAppController {
 
 	public $name = 'PaypalItems';

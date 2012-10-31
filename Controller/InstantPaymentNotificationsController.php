@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @property InstantPaymentNotification $InstantPaymentNotification Model
+ * @property EmailComponent $Email Component
+ */
 class InstantPaymentNotificationsController extends PaypalIpnAppController {
 
 	public $name = 'InstantPaymentNotifications';
