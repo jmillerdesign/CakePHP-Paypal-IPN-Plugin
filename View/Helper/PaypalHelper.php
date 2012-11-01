@@ -7,6 +7,11 @@
  * @link http://www.webtechnick.com
  * @license MIT
  */
+
+/**
+ * @property HtmlHelper $Html
+ * @property FormHelper $Form
+ */
 class PaypalHelper extends AppHelper {
 
 	public $helpers = array('Html', 'Form');
