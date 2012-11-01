@@ -14,19 +14,33 @@
  */
 class PaypalHelper extends AppHelper {
 
+	const PROD_SERVER_URL = 'https://www.paypal.com';
+
+	const SANDBOX_SERVER_URL = 'https://www.sandbox.paypal.com';
+
 	public $helpers = array('Html', 'Form');
 
-/**
- *  Setup the config based on the paypal_ipn_config in /Plugins/PaypalIpn/Config/paypal_ipn_config.php
- */
-	public function __construct(View $View, $settings = array()) {
-		if (App::import(array('type' => 'File', 'name' => 'PaypalIpn.PaypalIpnConfig', 'file' => APP . 'Config' . DS . 'paypal_ipn_config.php'))) {
-			$this->config = new PaypalIpnConfig();
-		} else {
-			$this->config = new PaypalIpnConfig();
-		}
+	protected $_settings = array(
+		'business' => 'sandbox_email@paypal.com', // Your Paypal email account
+		'test' => true, // Sandbox mode
+		'notify_url' => 'http://yoursite.com/paypal_ipn/process', // Notify_url... set this to the process path of your paypal_ipn::instant_payment_notification::process action
+		'currency_code' => 'USD', // Currency
+		'lc' => 'US', // Locality
+		'item_name' => 'Paypal_IPN', // Default item name.
+		'amount' => '15.00' // Default item amount.
+	);
 
-		parent::__construct($View, $settings);
+/**
+ * get default configuration
+ *
+ * @return array
+ */
+	public function getSettings() {
+		$settings = Set::merge($this->_settings, Configure::read('PaypalIpn'));
+		if (empty($settings['server'])) {
+			$settings['server'] = $settings['test'] ? self::SANDBOX_SERVER_URL : self::PROD_SERVER_URL;
+		}
+		return $settings;
 	}
 
 /**
@@ -69,13 +83,20 @@ class PaypalHelper extends AppHelper {
  *      etc...
  */
 	public function button($title = null, $options = array()) {
+		$defaultOptions = array(
+			'test' => false,
+			'label' => null,
+			'type' => 'paynow',
+		);
+		$options = Set::merge($defaultOptions, $options);
+
 		if (is_array($title)) {
 			$options = $title;
-			$title = isset($options['label']) ? $options['label'] : null;
+			$title = $options['label'];
 		}
-		$defaults = (isset($options['test']) && $options['test']) ? $this->config->testSettings : $this->config->settings;
-		$options = array_merge($defaults, $options);
-		$options['type'] = (isset($options['type'])) ? $options['type'] : "paynow";
+
+		Configure::write('PaypalIpn.sandbox', $options['test']);
+		$options = Set::merge($this->getSettings(), $options);
 
 		switch ($options['type']) {
 			case 'subscribe': //Subscribe
@@ -120,7 +141,9 @@ class PaypalHelper extends AppHelper {
 
 		$title = (empty($title)) ? $defaultTitle : $title;
 		$retval = "<form action='{$options['server']}/cgi-bin/webscr' method='post'><div class='paypal-form'>";
+		unset($options['test']);
 		unset($options['server']);
+		unset($options['label']);
 		foreach ($options as $name => $value) {
 			$retval .= $this->__hiddenNameValue($name, $value);
 		}
