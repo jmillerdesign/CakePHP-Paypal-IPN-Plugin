@@ -70,7 +70,7 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
  * Utility method to send basic emails based on a paypal IPN transaction.
  * This method is very basic, if you need something more complicated I suggest
  * creating your own method in the afterPaypalNotification function you build
- * in the app_controller.php
+ * in the AppController.php
  *
  * Example Usage: (InstantPaymentNotification = IPN)
  *   IPN->id = '4aeca923-4f4c-49ec-a3af-73d3405bef47';
@@ -83,7 +83,7 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
  *     'sendAs' => 'text'
  *   ));
  *
- *  Hint: use this in your afterPaypalNotification callback in your app_controller.php
+ *  Hint: use this in your afterPaypalNotification callback in your AppController.php
  *   function afterPaypalNotification($txnId){
  *     ClassRegistry::init('PaypalIpn.InstantPaymentNotification')->email(array(
  *       'id' => $txnId,

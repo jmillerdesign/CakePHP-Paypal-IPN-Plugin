@@ -50,7 +50,7 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
 	private function __processTransaction(CakeEvent $event) {
 		$txnId = $event->subject()->id;
 		$this->log(__d('paypal_ipn', 'Processing Trasaction: %s', $txnId), 'paypal');
-		//Put the afterPaypalNotification($txnId) into your app_controller.php
+		//Put the afterPaypalNotification($txnId) into your AppController.php
 		if (method_exists($this, 'afterPaypalNotification')) {
 			$this->afterPaypalNotification($txnId);
 		}
