@@ -79,7 +79,7 @@ class PaypalIpnSource extends DataSource {
 
 			$response = $this->Http->post($server, $data);
 
-			if ($response === 'VERIFIED') {
+			if ($response && ($response['body'] === 'VERIFIED')) {
 				return true;
 			}
 
