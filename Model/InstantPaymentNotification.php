@@ -56,7 +56,7 @@ class InstantPaymentNotification extends PaypalIpnAppModel {
 		$saveData = $this->buildAssociationsFromIPN($data);
 
 		// save
-		$this->InstantPaymentNotification->saveAll($saveData);
+		$this->saveAll($saveData);
 
 		// dispatch event
 		$this->getEventManager()->dispatch(new CakeEvent(
