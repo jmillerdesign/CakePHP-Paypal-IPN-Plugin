@@ -1,4 +1,5 @@
 <?php
+
 /* Paypal IPN plugin */
 Router::connect('/paypal_ipn/process', array(
 	'plugin' => 'paypal_ipn',

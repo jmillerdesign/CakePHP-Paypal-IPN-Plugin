@@ -1,0 +1,294 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2012-10-31 19:04+0900\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Controller/InstantPaymentNotificationsController.php:75
+msgid "Processing Trasaction: %s"
+msgstr ""
+
+#: Controller/InstantPaymentNotificationsController.php:98
+msgid "Invalid InstantPaymentNotification."
+msgstr ""
+
+#: Controller/InstantPaymentNotificationsController.php:118
+msgid "The InstantPaymentNotification has been saved"
+msgstr ""
+
+#: Controller/InstantPaymentNotificationsController.php:121
+msgid "The InstantPaymentNotification could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/InstantPaymentNotificationsController.php:135
+msgid "Invalid id for InstantPaymentNotification"
+msgstr ""
+
+#: Controller/InstantPaymentNotificationsController.php:139
+msgid "InstantPaymentNotification deleted"
+msgstr ""
+
+#: Controller/PaypalItemsController.php:19
+msgid "Invalid PaypalItem."
+msgstr ""
+
+#: Controller/PaypalItemsController.php:32
+msgid "The PaypalItem has been saved"
+msgstr ""
+
+#: Controller/PaypalItemsController.php:35
+msgid "The PaypalItem could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/PaypalItemsController.php:47
+msgid "Invalid id for PaypalItem"
+msgstr ""
+
+#: Controller/PaypalItemsController.php:51
+msgid "PaypalItem deleted"
+msgstr ""
+
+#: Model/InstantPaymentNotification.php:92
+msgid "Thank you for your paypal transaction"
+msgstr ""
+
+#: Model/InstantPaymentNotification.php:108
+msgid "Emailing: %s through the PayPal IPN Plugin."
+msgstr ""
+
+#: Model/InstantPaymentNotification.php:110
+msgid "%s %s"
+msgstr ""
+
+#: Model/Datasource/PaypalIpnSource.php:63
+msgid "HTTP Error in PaypalIpnSource::isValid while posting back to PayPal"
+msgstr ""
+
+#: Model/Datasource/PaypalIpnSource.php:66
+msgid "IPN Notification comes from unknown IP: %s"
+msgstr ""
+
+#: View/Helper/PaypalHelper.php:78
+msgid "Subscribe"
+msgstr ""
+
+#: View/Helper/PaypalHelper.php:88
+msgid "Add To Cart"
+msgstr ""
+
+#: View/Helper/PaypalHelper.php:93
+msgid "View Cart"
+msgstr ""
+
+#: View/Helper/PaypalHelper.php:97
+msgid "Donate"
+msgstr ""
+
+#: View/Helper/PaypalHelper.php:102
+msgid "Unsubscribe"
+msgstr ""
+
+#: View/Helper/PaypalHelper.php:107
+msgid "Checkout"
+msgstr ""
+
+#: View/Helper/PaypalHelper.php:112
+msgid "Pay Now"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_edit.ctp:98
+#: View/InstantPaymentNotifications/admin_view.ctp:47
+msgid "List InstantPaymentNotifications"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_index.ctp:2
+msgid "InstantPaymentNotifications"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_index.ctp:6
+#: View/PaypalItems/admin_index.ctp:6
+msgid "Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_index.ctp:11
+msgid "Payer Email"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_index.ctp:12
+#: View/InstantPaymentNotifications/admin_view.ctp:20
+#: View/PaypalItems/admin_edit.ctp:8
+#: View/PaypalItems/admin_index.ctp:11
+#: View/PaypalItems/admin_view.ctp:14
+msgid "Item Name"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_index.ctp:13
+#: View/InstantPaymentNotifications/admin_view.ctp:21
+#: View/PaypalItems/admin_edit.ctp:9
+#: View/PaypalItems/admin_index.ctp:12
+#: View/PaypalItems/admin_view.ctp:19
+msgid "Item Number"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_index.ctp:14
+msgid "Payment Gross"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_index.ctp:15
+#: View/PaypalItems/admin_index.ctp:15
+#: View/PaypalItems/admin_view.ctp:49
+msgid "Created"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_index.ctp:16
+#: View/InstantPaymentNotifications/admin_view.ctp:24
+#: View/PaypalItems/admin_index.ctp:16
+msgid "Actions"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_index.ctp:43
+#: View/InstantPaymentNotifications/admin_view.ctp:33
+#: View/PaypalItems/admin_index.ctp:43
+msgid "View"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_index.ctp:44
+#: View/InstantPaymentNotifications/admin_view.ctp:34
+#: View/PaypalItems/admin_index.ctp:44
+msgid "Edit"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_index.ctp:45
+#: View/InstantPaymentNotifications/admin_view.ctp:35
+#: View/PaypalItems/admin_index.ctp:45
+msgid "Delete"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_index.ctp:45
+#: View/InstantPaymentNotifications/admin_view.ctp:46
+#: View/PaypalItems/admin_index.ctp:45
+#: View/PaypalItems/admin_view.ctp:64
+msgid "Are you sure you want to delete # %s?"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_index.ctp:52
+#: View/PaypalItems/admin_index.ctp:52
+msgid "previous"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_index.ctp:54
+#: View/PaypalItems/admin_index.ctp:54
+msgid "next"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_index.ctp:58
+#: View/InstantPaymentNotifications/admin_view.ctp:48
+msgid "New InstantPaymentNotification"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_view.ctp:2
+msgid "InstantPaymentNotification"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_view.ctp:17
+msgid "Related Items"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_view.ctp:22
+#: View/PaypalItems/admin_edit.ctp:10
+#: View/PaypalItems/admin_index.ctp:13
+#: View/PaypalItems/admin_view.ctp:24
+msgid "Quantity"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_view.ctp:23
+msgid "Amount"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_view.ctp:45
+msgid "Edit InstantPaymentNotification"
+msgstr ""
+
+#: View/InstantPaymentNotifications/admin_view.ctp:46
+msgid "Delete InstantPaymentNotification"
+msgstr ""
+
+#: View/PaypalItems/admin_edit.ctp:2
+msgid "Add/Edit PaypalItem"
+msgstr ""
+
+#: View/PaypalItems/admin_edit.ctp:6
+#: View/PaypalItems/admin_view.ctp:4
+msgid "Id"
+msgstr ""
+
+#: View/PaypalItems/admin_edit.ctp:7
+#: View/PaypalItems/admin_view.ctp:9
+msgid "Instant Payment Notification Id"
+msgstr ""
+
+#: View/PaypalItems/admin_edit.ctp:11
+#: View/PaypalItems/admin_index.ctp:14
+#: View/PaypalItems/admin_view.ctp:29
+msgid "Mc Gross"
+msgstr ""
+
+#: View/PaypalItems/admin_edit.ctp:12
+#: View/PaypalItems/admin_view.ctp:34
+msgid "Mc Shipping"
+msgstr ""
+
+#: View/PaypalItems/admin_edit.ctp:13
+#: View/PaypalItems/admin_view.ctp:39
+msgid "Mc Handling"
+msgstr ""
+
+#: View/PaypalItems/admin_edit.ctp:14
+#: View/PaypalItems/admin_view.ctp:44
+msgid "Tax"
+msgstr ""
+
+#: View/PaypalItems/admin_edit.ctp:17
+msgid "Submit"
+msgstr ""
+
+#: View/PaypalItems/admin_edit.ctp:21
+#: View/PaypalItems/admin_view.ctp:65
+msgid "List PaypalItems"
+msgstr ""
+
+#: View/PaypalItems/admin_index.ctp:2
+msgid "PaypalItems"
+msgstr ""
+
+#: View/PaypalItems/admin_index.ctp:58
+#: View/PaypalItems/admin_view.ctp:66
+msgid "New PaypalItem"
+msgstr ""
+
+#: View/PaypalItems/admin_view.ctp:2
+msgid "PaypalItem"
+msgstr ""
+
+#: View/PaypalItems/admin_view.ctp:54
+msgid "Modified"
+msgstr ""
+
+#: View/PaypalItems/admin_view.ctp:63
+msgid "Edit PaypalItem"
+msgstr ""
+
+#: View/PaypalItems/admin_view.ctp:64
+msgid "Delete PaypalItem"
+msgstr ""
+
