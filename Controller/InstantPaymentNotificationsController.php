@@ -44,10 +44,10 @@ class InstantPaymentNotificationsController extends PaypalIpnAppController {
 
 /**
  * __processTransaction is a private callback function used to log a verified transaction
- * @access private
+ * @access public
  * @param String $txnId is the string paypal ID and the id used in your database.
  */
-	private function __processTransaction(CakeEvent $event) {
+	public function __processTransaction(CakeEvent $event) {
 		$txnId = $event->subject()->id;
 		$this->log(__d('paypal_ipn', 'Processing Trasaction: %s', $txnId), 'paypal');
 		//Put the afterPaypalNotification($txnId) into your AppController.php
