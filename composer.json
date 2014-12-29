@@ -1,6 +1,6 @@
 
 {
-    "name": "jmillerdesign/PaypalIpn",
+    "name": "jmillerdesign/paypal-ipn",
     "type": "cakephp-plugin",
     "description": "CakePHP Paypal Instant Payment Notification Plugin",
     "keywords": [
