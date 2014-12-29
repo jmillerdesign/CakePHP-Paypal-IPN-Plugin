@@ -1,0 +1,36 @@
+
+{
+    "name": "jmillerdesign/PaypalIpn",
+    "type": "cakephp-plugin",
+    "description": "CakePHP Paypal Instant Payment Notification Plugin",
+    "keywords": [
+        "cakephp",
+        "paypal",
+        "ipn"
+    ],
+    "homepage": "https://github.com/jmillerdesign/CakePHP-Paypal-IPN-Plugin",
+    "authors": [
+        {
+            "name": "J. Miller",
+            "email": "j@jmillerdesign.com"
+        },
+        {
+            "name": "Takashi Nojima"
+        },
+        {
+            "name": "Daniel Mendalka"
+        },
+        {
+            "name": "Nick Baker",
+            "email": "nick@webtechnick.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/jmillerdesign/CakePHP-Paypal-IPN-Plugin/issues",
+        "source": "https://github.com/jmillerdesign/CakePHP-Paypal-IPN-Plugin"
+    },
+    "require": {
+        "php": ">=5.3.0",
+        "composer/installers": "*"
+    }
+}
